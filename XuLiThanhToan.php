@@ -52,120 +52,56 @@
                 $idtv = $_SESSION['id'];
                 require 'KetNoiB1.php';
                 mysqli_set_charset($con, 'UTF8');
-                $phuongthuctt = $_GET['thanhtoan'];
+                 
+                $total = $_GET['total'];
                 //echo $phuongthuctt;
-        
-                if($phuongthuctt == 'ck'){
-                    echo"
-                    <section class='page-section cta'>
-                        <div class='container'>
-                            <div class='row'>
-                                <div class='col-xl-9 mx-auto'>
-                                    <div class='cta-inner bg-faded text-center rounded'>
-                                        <h2 class='section-heading mb-4'>
-                                        <span class='section-heading-lower'>Mời bạn nhập thông tin giao hàng</span>
+         
+                //luu dơn hang
+                $storeOder =  "INSERT INTO oders (user_id, order_date, total_price) 
+                                VALUES ('$idtv', NOW(), '$total' )"; 
+                $result1  = $con->query($storeOder); 
+                $order_id = mysqli_insert_id($con);
+                foreach($_SESSION['cart'] as $product_id => $item) {
                                         
-                                        <form action='XuLiLuuThanhToan.php?' method='GET' enctype='multipart/form-data'>
-                                            <ul class='list-unstyled list-hours mb-5 text-left mx-auto'>
-                                        
-                                            <li class='list-unstyled-item list-hours-item d-flex'>
-                                                Họ Tên: 
-                                                <span class='ms-auto'><input type='text'name = 'hoten'></span>
-                                                
-                                            </li> 
-                                            <li class='list-unstyled-item list-hours-item d-flex'>
-                                                Địa chỉ: 
-                                                <span class='ms-auto'><input type='text' name='diachi'> </span>
-                                                
-                                            </li>
-                                            <li class='list-unstyled-item list-hours-item d-flex'>
-                                                Số điện thoại: 
-                                                <span class='ms-auto'><input type='text' name='sodt'></span>
-                                                
-                                            </li>
-                                            <li class='list-unstyled-item list-hours-item d-flex'>
-                                                Thời gian đặt hàng: 
-                                                <span class='ms-auto'><input type='text' name='thoigian'></span>
-                                                
-                                            </li>
-                                            <li class='list-unstyled-item list-hours-item d-flex'>
-                                                Chuyển khoản
-                                                <span class='ms-auto'><input type='radio' id='ck' name='thanhtoan' value='ck'></span>
-                                            </li>
-                                            </ul>
-                                            <input class='btn btn-primary' type='submit'  value='Xác nhận'>
-                                        </form>
-                                        <br>Mời bạn chuyển khoản theo thông tin như sau: 
-                                        <br><br>Chủ Tài Khoản: Cửa hàng trà sữa D&L 
-                                        <br>Số tài khoản: 1802 205 053 026
-                                        <br>Agribank chi nhánh Ô Môn
-                                        <br>Nội dung: tên bạn - số điện thoại
-                                        <br>Ví dụ: NGUYENVANA-0123456789
-                                        
-                                        <br><br>Chúng tôi sẽ liên xác nhận đơn hàng qua số điện thoại mà bạn cung cấp
-                                        <br>D&L xin cảm ơn!   
-                                        </h2>
-                                    </div>
+                    require 'KetNoiB1.php';
+                    mysqli_set_charset($con, 'UTF8');
+                    // Prepare the query with a placeholder for the product ID
+                    $sql = "SELECT * FROM products WHERE product_id = '$product_id'";
+                    $result = $con->query($sql); 
+                    // Fetch the product from the result set
+                    $product = $result->fetch_assoc();
+
+                    $item_price = $product['price'] * $item; // Calculate the item price
+                    // $total_price += $item_price; // Add the item price to the total price
+                    
+                    // Display the product information and item price
+                    // echo '<p>' . $product['product_name'] . ' x ' . $item . ' = $' . $item_price . '</p>'; 
+                    $storeOderItem =  "INSERT INTO order_items (order_id, product_id, quantity, item_price) 
+                                        VALUES ('$order_id', '$product_id', '$item' , '$item_price')"; 
+                    $result3 = $con->query($storeOderItem);
+
+                    
+                } 
+                    
+                echo"
+                <section class='page-section cta'>
+                    <div class='container'>
+                        <div class='row'>
+                            <div class='col-xl-9 mx-auto'>
+                                <div class='cta-inner bg-faded text-center rounded'>
+                                    <h2 class='section-heading mb-4'>
+                                    <span class='section-heading-lower'>Bạn đã đặt hàng thành công!</span> 
+                                    <br>Mời bạn đến mục đơn hàng để xem lại đơn đã đặt.
+                                    <br>D&L xin cảm ơn!   
+                                    </h2>
                                 </div>
                             </div>
                         </div>
-                    </section>
-                    ";
+                    </div>
+                </section>
+                ";
                     
-                }
-                else{
-                    echo"
-                    <section class='page-section cta'>
-                        <div class='container'>
-                            <div class='row'>
-                                <div class='col-xl-9 mx-auto'>
-                                    <div class='cta-inner bg-faded text-center rounded'>
-                                        <h2 class='section-heading mb-4'>
-                                        <span class='section-heading-lower'>Mời bạn nhập thông tin giao hàng</span>
-                                        
-                                        <form action='XuLiLuuThanhToan.php' method='GET' enctype='multipart/form-data'>
-                                            <ul class='list-unstyled list-hours mb-5 text-left mx-auto'>
-                                        
-                                            <li class='list-unstyled-item list-hours-item d-flex'>
-                                                Họ Tên: 
-                                                <span class='ms-auto'><input type='text'name = 'hoten'></span>
-                                                
-                                            </li> 
-                                            <li class='list-unstyled-item list-hours-item d-flex'>
-                                                Địa chỉ: 
-                                                <span class='ms-auto'><input type='text' name='diachi'> </span>
-                                                
-                                            </li>
-                                            <li class='list-unstyled-item list-hours-item d-flex'>
-                                                Số điện thoại: 
-                                                <span class='ms-auto'><input type='text' name='sodt'></span>
-                                                
-                                            </li>
-                                            <li class='list-unstyled-item list-hours-item d-flex'>
-                                                Thời gian đặt hàng: 
-                                                <span class='ms-auto'><input type='text' name='thoigian'></span>
-                                                
-                                            </li>
-                                            <li class='list-unstyled-item list-hours-item d-flex'>
-                                                Thanh toán khi nhận hàng
-                                                <span class='ms-auto'><input type='radio' id='offline' name='thanhtoan' value='offline'></span>
-                                                
-                                            </li>
-                                            </ul>
-                                            <input class='btn btn-primary' type='submit'  value='Xác nhận'>
-                                        </form>
-                                        
-                                        <br><br>Chúng tôi sẽ liên xác nhận đơn hàng qua số điện thoại mà bạn cung cấp
-                                        <br>D&L xin cảm ơn!   
-                                        </h2>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </section>
-                    ";
-                    
-                }
+                unset($_SESSION["cart"]);
             }
         ?>       
         
@@ -180,115 +116,4 @@
 </html>
 
 
-<?php
-    // session_start();
-    // if(!isset($_SESSION['id'])){
-    //     header('location: DangNhap.html');
-    // }
-    // else{
-    //     $idtv = $_SESSION['id'];
-    //     require 'KetNoiB1.php';
-    //     mysqli_set_charset($con, 'UTF8');
-    //     $phuongthuctt = $_GET['thanhtoan'];
-    //     //echo $phuongthuctt;
  
-    //     if($phuongthuctt == 'ck'){
-    //         echo "Mời bạn nhập thông tin giao hàng: ";
-    //         echo"<form action='XuLiLuuThanhToan.php?' method='GET' enctype='multipart/form-data'>";
-    //         echo "<br><table >";
-    //         echo "
-    //         <tr>
-    //             <td>         
-    //                 Họ Tên: 
-    //             </td>
-    //             <td>         
-    //                 Địa chỉ:   
-    //             </td>
-    //             <td>         
-    //                 Số điện thoại:   
-    //             </td>
-    //             <td>         
-    //                 Thời gian đặt hàng:   
-    //             </td>
-                
-    //         </tr> 
-    //         <tr>
-    //             <td>         
-    //                 <input type='text'name = 'hoten'>
-    //             </td>
-    //             <td>         
-    //                 <input type='text' name='diachi'>  
-    //             </td>  
-    //             <td>         
-    //                 <input type='text' name='sodt'>
-    //             </td>  
-    //             <td>         
-    //                 <input type='text' name='thoigian'>
-    //             </td> 
-    //             <td>         
-    //                 <input type='radio' id='ck' name='thanhtoan' value='ck'>
-    //                 <label id='ck' name='thanhtoan' value='ck'>Chuyển khoản</label><br>
-    //             </td>
-    //         </tr>
-    //         "; 
-    //         echo "</table>";
-    //         echo"<input type='submit' value='Xác nhận'>";
-    //         echo"</form>";
-    //         echo "<br>Mời bạn chuyển khoản theo thông tin như sau: ";
-    //         echo "<br><br>Chủ Tài Khoản: Cửa hàng trà sữa D&L ";
-    //         echo "<br>Số tài khoản: 1802 205 053 026";
-    //         echo "<br>Agribank chi nhánh Ô Môn";
-    //         echo "<br>Nội dung: tên bạn - số điện thoại";
-    //         echo "<br>Ví dụ: NGUYENVANA-0123456789";
-            
-    //         echo "<br><br>Chúng tôi sẽ liên xác nhận đơn hàng qua số điện thoại mà bạn cung cấp";
-    //         echo "<br>D&L xin cảm ơn!";
-            
-
-    //     }
-    //     else{
-    //         echo"<form action='XuLiLuuThanhToan.php' method='GET' enctype='multipart/form-data'>";
-    //         echo "<br><table >";
-    //         echo "
-    //         <tr>
-    //             <td>         
-    //                 Họ Tên: 
-    //             </td>
-    //             <td>         
-    //                 Địa chỉ:   
-    //             </td>
-    //             <td>         
-    //                 Số điện thoại:   
-    //             </td>
-    //             <td>         
-    //                 Thời gian đặt hàng:   
-    //             </td>
-    //         </tr> 
-    //         <tr>
-    //             <td>         
-    //                 <input type='text'name = 'hoten'>
-    //             </td>
-    //             <td>         
-    //                 <input type='text' name='diachi'>  
-    //             </td>  
-    //             <td>         
-    //                 <input type='text' name='sodt'>
-    //             </td>  
-    //             <td>         
-    //                 <input type='text' name='thoigian'>
-    //             </td>
-    //             <td>         
-    //                 <input type='radio' id='offline' name='thanhtoan' value='offline'>
-    //                 <label id='offline' name='thanhtoan' value='offline'>Thanh toán khi nhận hàng</label><br>
-    //             </td>
-    //         </tr>
-    //         "; 
-    //         echo "</table>";
-    //         echo"<input type='submit' value='Xác nhận'>";
-    //         echo"</form>";
-
-    //         echo "<br><br>Chúng tôi sẽ liên xác nhận đơn hàng qua số điện thoại mà bạn cung cấp";
-    //         echo "<br>D&L xin cảm ơn!";
-    //     }
-    // }
-?>

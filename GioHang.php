@@ -85,10 +85,9 @@
                                             
                                             // Display the product information and item price
                                             echo '<p>' . $product['product_name'] . ' x ' . $item . ' = $' . $item_price . '</p>';
-                                             
                                             echo "
                                             <ul class='list-unstyled list-hours mb-5 text-left mx-auto'>
-                                                <li class='list-unstyled-item list-hours-item d-flex'> 
+                                                <li class='list-unstyled-item list-hours-item d-flex'>
                                                     <button class='intro-button mx-auto hide-border'><a class='btn btn-primary' href='TangGioHang.php?mahang=".$product_id."'>+</a></button><br> 
                                                     <button class='intro-button mx-auto hide-border'><a class='btn btn-primary' href='GiamGioHang.php?mahang=".$product_id."'>-</a></button><br> 
                                                     <button class='intro-button mx-auto hide-border'><a class='btn btn-primary' href='XoaGioHang.php?mahang=".$product_id."'>Xóa</a></button><br> 
@@ -96,38 +95,9 @@
                                             </ul>
                                                 <span >
                                                 </span>
-                                            ";
-                                             
-                                        }
-                                         
-                                    }
-                                        $tongtien = 0;
-                                        while($row = $result->fetch_assoc()){
-                                            echo"
-                                            <li class='list-unstyled-item list-hours-item d-flex'>
-                                                ".$row['tensp']."
-                                                <span class='ms-auto'>".$row['giasp']."</span>
-                                                <span >
-                                                    <button class='intro-button mx-auto hide-border'><a class='btn btn-primary' href='XoaGioHang.php?mahang=".$row['idgh']."'>Xóa</a></button><br> 
-                                                </span>
-                                            </li>
-                                            ";
-                                            
-                                            //Tổng tiền
-                                            
-                                            // $tongtien = $tongtien + $row['giasp'];
-                                        }
-                                        // echo"
-                                        //     <li class='list-unstyled-item list-hours-item d-flex'>
-                                        //         Tên sản phẩm
-                                        //         <span class='ms-auto'>Giá sản phẩm è</span>
-                                        //         <span class='ms-auto'>Số lượng</span> 
-                                        //         <span >
-                                        //             <button class='intro-button mx-auto hide-border'><a class='btn btn-primary' href='XoaGioHang.php?mahang=".$row['idgh']."'>Xóa</a></button><br> 
-                                        //         </span>
-                                        //     </li>
-                                        // ";
-
+                                            "; 
+                                        }  
+                                    } 
                                     echo"
                                         
                                     </ul>
@@ -137,9 +107,12 @@
                                             <br />
                                             D&L Milk Tea
                                         </em>
-                                    </p>
+                                    </p>"; 
+
+
+                                    echo" 
                                     <p class='mb-0'>
-                                    <div class='intro-button mx-auto'><a class='btn btn-primary btn-xl' href='ThanhToan.php'>Thanh Toán</a></div>
+                                    <div class='intro-button mx-auto'><a class='btn btn-primary btn-xl' href='ThanhToan.php?total=".$total_price."'>Đặt Hàng</a></div>
                                         <small><em>Call</em></small>
                                         <br />
                                         (317) 585-8468
@@ -150,11 +123,8 @@
                     </div>
                 </section>
                 "; 
- 
             }
- 
         ?>        
-        
         <footer class="footer text-faded text-center py-5">
             <div class="container"><p class="m-0 small">Copyright &copy; Tường Di Website 2022</p></div>
         </footer>
@@ -163,54 +133,4 @@
         <!-- Core theme JS-->
         <script src="js/scripts.js"></script>
     </body>
-</html>
-
-
-<?php
-    // session_start();
-    // if(!isset($_SESSION['id'])){
-    //     header('location: DangNhap.html');
-    // }
-    // else{
-    //     $idtv = $_SESSION['id']; 
-    //     require 'KetNoiB1.php';
-    //     mysqli_set_charset($con, 'UTF8');
-    //     $sql = "SELECT idgh, tensp, giasp FROM giohang WHERE idtv = '$idtv'";
-    //     $result = $con->query($sql);
-        
-        
-    //     echo "<table border = '1' cellpadding = '1' cellspacing = '1'>";
-    //     echo "<h3>Đây là giỏ hàng của bạn</h3>";
-    //     $tongtien = 0;
-    //     while($row = $result->fetch_assoc()){
-    //         echo "
-    //         <tr>
-    //             <td>         
-    //                 Tên Nước: ".$row['tensp']."<br>
-    //             </td>
-    //             <td>         
-    //                 Giá: ".$row['giasp']." <br>   
-    //             </td>
-    //             <td>         
-    //             <button type = 'button' ><a href='XoaGioHang.php?mahang=".$row['idgh']."'>Xóa</a></button><br>   
-    //             </td>
-    //         </tr> 
-    //         "; 
-    //         //Tổng tiền
-            
-    //         $tongtien = $tongtien + $row['giasp'];
-    //     }
-    //     echo "</table>";
-    //     echo "Tổng tiền của bạn là: ".$tongtien;
-    //     echo "<br>";
-        
-    //     echo "<button type = 'button' ><a href='Menu.php'>Xem Menu </a></button>";
-    //     echo "<button><a href = 'ThanhToan.php'>Tiến hành thanh toán</a></button>";
-    //     echo "<button><a href = 'index.php'>Trở về trang chủ</a></button>";
-
-        
-
-         
-
-    // }
-?>
+</html> 

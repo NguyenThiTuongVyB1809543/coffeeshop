@@ -48,69 +48,32 @@
                 header('location: DangNhap.html');
             }
             else{
-                $idtv = $_SESSION['id'];
+                // $idtv = $_SESSION['id'];
                 $idsp = $_GET['masp'];
                 require 'KetNoiB1.php';
-                mysqli_set_charset($con, 'UTF8');
-                $quantity = 1;
+                mysqli_set_charset($con, 'UTF8'); 
                 $sql = "SELECT * FROM products WHERE product_id = '$idsp'";
-                $result1 = $con->query($sql);
-                $row = $result1->fetch_assoc();
-
-                $result = $con->query($sql);
-                $product = $result->fetch_assoc();
-
+                $result  = $con->query($sql);
+                $product = $result ->fetch_assoc();
+ 
                 if(!isset($_SESSION["cart"])){
                     $_SESSION["cart"] = array();
                     $_SESSION["cart"][$idsp] = 1; 
-                    var_dump($_SESSION["cart"]);exit;
+                    // var_dump($_SESSION["cart"]);exit;
                 }
                 else{
                     // Add the product to the cart
                     if(isset($_SESSION["cart"][$idsp])){
                         // If the product is already in the cart, increment the quantity
                         $_SESSION["cart"][$idsp] += 1; 
-                        var_dump($_SESSION["cart"]);exit;
+                        // var_dump($_SESSION["cart"]);exit;
                     }
                     else{
                         // If the product is not in the cart, add it with a quantity of 1 
                         $_SESSION["cart"][$idsp] = 1;   
-                        var_dump($_SESSION["cart"]);exit;
+                        // var_dump($_SESSION["cart"]);exit;
                     }
                 } 
-
-
-                // $sqltv = "SELECT tendangnhap FROM thanhvien WHERE id = '$idtv'";
-                // $resulttv = $con->query($sqltv);
-                // $rowtv = $resulttv->fetch_assoc();
-                // echo $idsp."<br>";
-                // echo $row['tensp'];
-                
-                // header('location: XuatHoaDon.php');
-                // echo"
-                // <section class='page-section cta'>
-                //     <div class='container'>
-                //         <div class='row'>
-                //             <div class='col-xl-9 mx-auto'>
-                //                 <div class='cta-inner bg-faded text-center rounded'>
-                //                     <h2 class='section-heading mb-4'>
-                //                         <span class='section-heading-upper'>Bạn đã thêm món vào giỏ hàng thành công! </span>
-                //                         <span class='section-heading-lower'>".$row['tensp']."</span>
-                //                         <span class='section-heading-upper'>Mời bạn vào giỏ hàng để thang toán</span>
-                //                     </h2>
-                //                 </div>
-                //             </div>
-                //         </div>
-                //     </div>
-                // </section>
-                // ";
-                // $tensp = $row['tensp'];
-                // $giasp = $row['giasp'];
-                
-                // //Thêm idtv, tensp, giasp vào bảng giohang có 3 cột 
-                // $sqlthemgh = "INSERT INTO giohang (idtv, idsp, tensp, giasp) VALUES ('$idtv', '$idsp', '$tensp', '$giasp' )";
-                // $resultgh = $con->query($sqlthemgh);
-                // $con->close();
                 echo"
                 <section class='page-section cta'>
                     <div class='container'>
@@ -128,7 +91,6 @@
                     </div>
                 </section>
                 ";
-              
             }
         ?> 
         
@@ -141,52 +103,5 @@
         <script src="js/scripts.js"></script>
     </body>
 </html>
-
-
-
-
-
-
-
-
-
-<?php
-    // session_start();
-    // if(!isset($_SESSION['id'])){
-    //     header('location: DangNhap.html');
-    // }
-    // else{
-    //     $idtv = $_SESSION['id'];
-    //     $idsp = $_GET['masp'];
-    //     require 'KetNoiB1.php';
-    //     mysqli_set_charset($con, 'UTF8');
-
-    //     $sql = "SELECT idsp, tensp, giasp FROM sanpham WHERE idsp = '$idsp'";
-    //     $result = $con->query($sql);
-    //     $row = $result->fetch_assoc();
-
-    //     $sqltv = "SELECT tendangnhap FROM thanhvien WHERE id = '$idtv'";
-    //     $resulttv = $con->query($sqltv);
-    //     $rowtv = $resulttv->fetch_assoc();
-    //     // echo $idsp."<br>";
-    //     // echo $row['tensp'];
-        
-    //     // header('location: XuatHoaDon.php');
-
-        
-    //     echo "<center>";
-    //     echo "<h2>Bạn đã thêm món vào giỏ hàng thành công! </h2>";
-    //     echo "Tên đồ uống: ".$row['tensp']."<br><br>";
-    //     $tensp = $row['tensp'];
-    //     $giasp = $row['giasp'];
-        
-    //     //Thêm idtv, tensp, giasp vào bảng giohang có 3 cột 
-    //     $sqlthemgh = "INSERT INTO giohang (idtv, idsp, tensp, giasp) VALUES ('$idtv', '$idsp', '$tensp', '$giasp' )";
-    //     $resultgh = $con->query($sqlthemgh);
-    //     $con->close();
-    //     //đường dẫn đến giỏ hàng
-    //     echo "<button type = 'button'><a href='GioHang.php'>Xem Giỏ Hàng</a></button>";
-    //     echo "<button><a href = 'index.php'>Trở về trang chủ</a></button>";
-    //     echo "</center>";
-    // }
-?>
+ 
+ 

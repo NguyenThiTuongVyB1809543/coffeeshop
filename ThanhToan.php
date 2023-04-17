@@ -49,65 +49,83 @@
             }
             else{
                 $idtv = $_SESSION['id'];
-                require 'KetNoiB1.php';
+                $total = $_GET['total']; 
+                require 'KetNoiB1.php'; 
                 mysqli_set_charset($con, 'UTF8');
-                $sql = "SELECT idgh, idsp, tensp, giasp FROM giohang WHERE idtv = '$idtv'";
+                $sql = "SELECT * FROM users WHERE id = '$idtv'";
                 $result = $con->query($sql);
                 $row = $result->fetch_assoc();
-                //nếu giỏ hàng trống 
-                $num_rows=mysqli_num_rows($result);
-                if($num_rows>0){
+                $name = $row['name'];
+                $email = $row['email'];
+                $address = $row['address'];
+                $phone_number = $row['phone_number'];
+
+                // INSERT INTO mytable (column1, column2, date_time_column) 
+                // VALUES ('value1', 'value2', NOW());
+
+                if(empty($_SESSION['cart'])) {
                     echo"
-                    <section class='page-section cta'>
-                        <div class='container'>
-                            <div class='row'>
-                                <div class='col-xl-9 mx-auto'>
-                                    <div class='cta-inner bg-faded text-center rounded'>
-                                        <h2 class='section-heading mb-4'>
-                                            
-                                            <h1>Thanh Toán</h1>
-
-                                            <form action = 'XuLiThanhToan.php' method='GET'>
-                                                <h3>Chọn phương thức thanh toán</h3>
-                                                <input type='radio' id='offline' name='thanhtoan' value='offline'>
-                                                <label for='offline'>Thanh toán khi nhận hàng</label><br>
-                                                <input type='radio' id='ck' name='thanhtoan' value='ck'>
-                                                <label for='ck'>Chuyển khoản</label><br>
-                                                
-                                                <input class='btn btn-primary' type='submit' value='Đồng Ý'>
-                                                
-                                            
-                                            </form>
-
-
-                                        </h2>
+                        <section class='page-section cta'>
+                            <div class='container'>
+                                <div class='row'>
+                                    <div class='col-xl-9 mx-auto'>
+                                        <div class='cta-inner bg-faded text-center rounded'>
+                                            <h2 class='section-heading mb-4'> 
+                                                <h1>Bạn chưa có gì trong giỏ hàng!</h1> 
+                                            </h2>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </section>
-                    ";
+                        </section>
+                        ";
                 }
-                else{
+                else{ 
                     echo"
-                    <section class='page-section cta'>
-                        <div class='container'>
-                            <div class='row'>
-                                <div class='col-xl-9 mx-auto'>
-                                    <div class='cta-inner bg-faded text-center rounded'>
-                                        <h2 class='section-heading mb-4'>
-                                            
-                                            <h1>Bạn chưa có gì trong giỏ hàng!</h1>
-
-                                        </h2>
+                        <section class='page-section cta'>
+                            <div class='container'>
+                                <div class='row'>
+                                    <div class='col-xl-9 mx-auto'>
+                                        <div class='cta-inner bg-faded text-center rounded'>
+                                            <h2 class='section-heading mb-4'>
+                                                <h1> Thông Tin Đặt Hàng</h1> 
+                                                <ul class='list-unstyled list-hours mb-5 text-left mx-auto'>
+                                                    <li class='list-unstyled-item list-hours-item d-flex'>
+                                                        Tên
+                                                        <span class='ms-auto'>".$name."</span>
+                                                    </li>
+                                                    <li class='list-unstyled-item list-hours-item d-flex'>
+                                                        Email
+                                                        <span class='ms-auto'>".$email."</span>
+                                                    </li>
+                                                    <li class='list-unstyled-item list-hours-item d-flex'>
+                                                        Địa Chỉ
+                                                        <span class='ms-auto'>". $address."</span>
+                                                    </li>
+                                                    <li class='list-unstyled-item list-hours-item d-flex'>
+                                                        Số điện thoại
+                                                        <span class='ms-auto'>". $phone_number."</span>
+                                                    </li> 
+                                                    <li class='list-unstyled-item list-hours-item d-flex'>
+                                                        Tổng tiền
+                                                        <span class='ms-auto'>".$total."</span>
+                                                    </li> 
+                                                </ul>"; 
+                                                echo"
+                                                    <div class='intro-button mx-auto'><a class='btn btn-primary btn-xl' href='XuLiThanhToan.php?total=".$total."'>Đặt Hàng</a></div>
+                                            </h2>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </section>
-                    ";
-                    
+                        </section>
+                        ";
                 }
+
+
+
+                 
+                 
             }
         ?>        
         
