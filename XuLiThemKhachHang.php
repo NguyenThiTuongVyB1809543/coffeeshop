@@ -13,6 +13,13 @@
     //lấy password
     $password = $_POST['password'];
     echo "$password"."<br>";
+
+
+    $email = $_POST['email'];
+    $address = $_POST['address'];
+    $phone_number = $_POST['phone_number'];
+
+
     //lấy vaitro 
     $vaitro = $_POST['vaitro'];
     echo "$vaitro"."<br>";
@@ -28,9 +35,10 @@
     //B1: kết nối
     require 'KetNoiB1.php';
     //viết câu sql
-    $sql = "INSERT INTO thanhvien (tendangnhap, matkhau, vaitro)
-            value('$account', '$password', '$vaitro')";
-  
+    // $sql = "INSERT INTO thanhvien (tendangnhap, matkhau, vaitro)
+    //         value('$account', '$password', '$vaitro')";
+    $sql = "INSERT INTO users (username, password, email, address, phone_number, vaitro)
+            value('$account', '$password', '$email', '$address', '$phone_number', '$vaitro')";
 
     //thực hiện truy vấn
     $result = $con->query($sql);

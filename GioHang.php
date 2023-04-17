@@ -48,11 +48,13 @@
                 header('location: DangNhap.html');
             }
             else{
-                $idtv = $_SESSION['id']; 
+                $idtv = $_SESSION['id'];  
                 require 'KetNoiB1.php';
                 mysqli_set_charset($con, 'UTF8');
                 $sql = "SELECT idgh, tensp, giasp FROM giohang WHERE idtv = '$idtv'";
-                $result = $con->query($sql);
+                $result = $con->query($sql); 
+                // Initialize the total price
+                $total_price = 0; 
                 echo"
                 <section class='page-section cta'>
                     <div class='container'>
@@ -64,6 +66,41 @@
                                         <span class='section-heading-lower'>Giỏ Hàng</span>
                                     </h2>
                                     <ul class='list-unstyled list-hours mb-5 text-left mx-auto'>";
+                                    if(empty($_SESSION['cart'])) {
+                                        echo 'Your cart is empty.';
+                                    } else {
+                                        // Loop through the cart and calculate the total price
+                                        foreach($_SESSION['cart'] as $product_id => $item) {
+                                           
+                                            require 'KetNoiB1.php';
+                                            mysqli_set_charset($con, 'UTF8');
+                                            // Prepare the query with a placeholder for the product ID
+                                            $sql = "SELECT * FROM products WHERE product_id = '$product_id'";
+                                            $result = $con->query($sql); 
+                                            // Fetch the product from the result set
+                                            $product = $result->fetch_assoc();
+                     
+                                            $item_price = $product['price'] * $item; // Calculate the item price
+                                            $total_price += $item_price; // Add the item price to the total price
+                                            
+                                            // Display the product information and item price
+                                            echo '<p>' . $product['product_name'] . ' x ' . $item . ' = $' . $item_price . '</p>';
+                                             
+                                            echo "
+                                            <ul class='list-unstyled list-hours mb-5 text-left mx-auto'>
+                                                <li class='list-unstyled-item list-hours-item d-flex'> 
+                                                    <button class='intro-button mx-auto hide-border'><a class='btn btn-primary' href='TangGioHang.php?mahang=".$product_id."'>+</a></button><br> 
+                                                    <button class='intro-button mx-auto hide-border'><a class='btn btn-primary' href='GiamGioHang.php?mahang=".$product_id."'>-</a></button><br> 
+                                                    <button class='intro-button mx-auto hide-border'><a class='btn btn-primary' href='XoaGioHang.php?mahang=".$product_id."'>Xóa</a></button><br> 
+                                                </li> 
+                                            </ul>
+                                                <span >
+                                                </span>
+                                            ";
+                                             
+                                        }
+                                         
+                                    }
                                         $tongtien = 0;
                                         while($row = $result->fetch_assoc()){
                                             echo"
@@ -78,15 +115,25 @@
                                             
                                             //Tổng tiền
                                             
-                                            $tongtien = $tongtien + $row['giasp'];
+                                            // $tongtien = $tongtien + $row['giasp'];
                                         }
+                                        // echo"
+                                        //     <li class='list-unstyled-item list-hours-item d-flex'>
+                                        //         Tên sản phẩm
+                                        //         <span class='ms-auto'>Giá sản phẩm è</span>
+                                        //         <span class='ms-auto'>Số lượng</span> 
+                                        //         <span >
+                                        //             <button class='intro-button mx-auto hide-border'><a class='btn btn-primary' href='XoaGioHang.php?mahang=".$row['idgh']."'>Xóa</a></button><br> 
+                                        //         </span>
+                                        //     </li>
+                                        // ";
 
                                     echo"
                                         
                                     </ul>
                                     <p class='address mb-5'>
                                         <em>
-                                            <strong>Tổng tiền của bạn là: ".$tongtien."</strong>
+                                            <strong>Tổng tiền của bạn là: ". $total_price ."</strong>
                                             <br />
                                             D&L Milk Tea
                                         </em>
@@ -102,8 +149,10 @@
                         </div>
                     </div>
                 </section>
-                ";
+                "; 
+ 
             }
+ 
         ?>        
         
         <footer class="footer text-faded text-center py-5">

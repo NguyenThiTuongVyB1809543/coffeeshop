@@ -1,8 +1,10 @@
 <?php
     //(1) Lấy dữ liệu về
-    $username = $_POST['name'];//tên
-    $pass1 = $_POST['pass'];//password
-
+    $username = $_POST['name']; 
+    $pass1 = $_POST['pass']; 
+    $email = $_POST['email']; 
+    $address = $_POST['address']; 
+    $phone_number = $_POST['phone_number']; 
 
     // Hình đại diện
     // $duongdan = "./img/".$_FILES['myfile']['name'];
@@ -27,10 +29,15 @@
     mysqli_set_charset($con, 'UTF8');
    
    //viết câu sql
-    $sql = "INSERT INTO thanhvien (tendangnhap, matkhau, vaitro) 
-    value ('$username', '$pass1', '0')";
+    // $sql = "INSERT INTO thanhvien (tendangnhap, matkhau, vaitro) 
+    // value ('$username', '$pass1', '0')";
     // $con->query($sql);
     
+    $sql = "INSERT INTO users (username, password, email, address, phone_number, vaitro) 
+    value ('$username', '$pass1', '$email', '$address', '$phone_number',  '0')";
+    // $con->query($sql);
+
+
     //thực hiên truy vấn
     $result = $con->query($sql);
     header('location: DangNhap.html');

@@ -31,8 +31,10 @@
     //B1: kết nối
     require 'KetNoiB1.php';
     //viết câu sql
-    $sql = "UPDATE  sanpham SET tensp='$name', chitietsp='$detail', giasp='$price', hinhanhsp='$duongdan', idtv='$getid'
-            WHERE idsp = $idsp ";
+    // $sql = "UPDATE  sanpham SET tensp='$name', chitietsp='$detail', giasp='$price', hinhanhsp='$duongdan', idtv='$getid'
+    //         WHERE idsp = $idsp ";
+    $sql = "UPDATE  products SET product_name='$name', description='$detail', price='$price', image_url='$duongdan' 
+            WHERE product_id = $idsp ";
     
 
     //thực hiện truy vấn

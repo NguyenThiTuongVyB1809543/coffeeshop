@@ -33,8 +33,8 @@
                         <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="index.php">Trang Chủ</a></li>
                         <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="Admin.php">Admin</a></li>
                         <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="QuanLi.php">Quản Lí Sản Phẩm</a></li>
-                        <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="QuanLiKhachHang.php">Quản Lí Khách Hàng</a></li>
-                        <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="QuanLiHoaDon.php">Quản Lí Hóa Đơn</a></li>
+                        <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="QuanLiKhachHang.php">Thông Tin Khách Hàng</a></li>
+                        <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="QuanLiHoaDon.php">Thông Tin Hóa Đơn</a></li>
                       
                       
                     </ul>
@@ -60,7 +60,7 @@
         $idtv = $_SESSION['id'];
         require 'KetNoiB1.php';
         mysqli_set_charset($con, 'UTF8');
-        $sql = "SELECT * FROM thanhvien ";
+        $sql = "SELECT * FROM users ";
         $result = $con->query($sql);
         echo"
         <section class='page-section cta'>
@@ -70,11 +70,11 @@
                         <div class='cta-inner bg-faded text-center rounded'>
                             <h2 class='section-heading mb-5'>
                                 <span class='section-heading-upper'>Come On In</span>
-                                <span class='section-heading-lower'>Quản Lí Khách Hàng</span>
+                                <span class='section-heading-lower'>Thông Tin Khách Hàng</span>
                             </h2>
                             <div class='intro-button mx-auto'><a class='btn btn-primary btn-xl' href='ThemKhachHang.php'>Thêm Khách Hàng</a></div><br>
-                            <center>
-                            <table border = '1' cellpadding = '1' cellspacing = '1'>
+                            <center >
+                            <table border = '1' cellpadding = '1' cellspacing = '1' >
                                 <tr>
                                     <th>
                                         <ul class='list-unstyled list-hours mb-5 text-left mx-auto'>
@@ -84,7 +84,7 @@
                                         </ul>
                                     </th>
                                     <th>
-                                    <ul class='list-unstyled list-hours mb-5 text-left mx-auto'>
+                                        <ul class='list-unstyled list-hours mb-5 text-left mx-auto'>
                                             <li class='list-unstyled-item list-hours-item d-flex'>
                                                 <span class='ms-auto'>Mật Khẩu</span>
                                             </li>
@@ -92,22 +92,46 @@
                                        
                                     </th>
 
-                                    <th></th>
+                                    <th>
+                                        <ul class='list-unstyled list-hours mb-5 text-left mx-auto'>
+                                            <li class='list-unstyled-item list-hours-item d-flex'>
+                                                <span class='ms-auto'>Email</span>
+                                            </li>
+                                        </ul>
+                                    </th>
+                                    <th>
+                                        <ul class='list-unstyled list-hours mb-5 text-left mx-auto'>
+                                            <li class='list-unstyled-item list-hours-item d-flex'>
+                                                <span class='ms-auto'>Địa Chỉ</span>
+                                            </li>
+                                        </ul>
+                                    </th>
+                                    <th>
+                                        <ul class='list-unstyled list-hours mb-5 text-left mx-auto'>
+                                            <li class='list-unstyled-item list-hours-item d-flex'>
+                                                <span class='ms-auto'>Số Điện Thoại</span>
+                                            </li>
+                                        </ul>
+                                    </th>
                                     <th></th>
                                 </tr>
 
-                                <tr>";
+                                <tr class=''>";
                                 while($row = $result->fetch_assoc()){
                                     $idkh = $row['id'];
                                     
                                     echo "
-                                        <td>".$row['tendangnhap']."<br></td>
-                                        <td>".$row['matkhau']."<br></td>
-                                        <td><div class='intro-button mx-auto' ><a class='btn btn-primary btn-xl' href='SuaKhachHang.php?makh=".$idkh."'>Sửa</a></div></td>
-                                        <td><div class='intro-button mx-auto' ><a class='btn btn-primary btn-xl' href='XoaKhachHang.php?makh=".$idkh."'>Xóa</a></div></td>
-                                        
-                                    </tr>
-                                     ";
+                                        <td>".$row['username']."<br></td>
+                                        <td>".$row['password']."<br></td>
+                                        <td>".$row['email']."<br></td>
+                                        <td>".$row['address']."<br></td>
+                                        <td>".$row['phone_number']."<br></td>  
+                                        </tr>
+                                        ";
+                                    //     echo "
+                                    //         <td><div class='intro-button mx-auto' ><a class='btn btn-primary btn-xl' href='SuaKhachHang.php?makh=".$idkh."'>Sửa</a></div></td>
+                                    //         <td><div class='intro-button mx-auto' ><a class='btn btn-primary btn-xl' href='XoaKhachHang.php?makh=".$idkh."'>Xóa</a></div></td>
+                                    // ";
                                 }
                                 
                             echo "</table>

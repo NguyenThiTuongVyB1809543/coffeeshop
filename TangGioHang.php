@@ -5,16 +5,32 @@ if(!isset($_SESSION['id'])){
 }
 else{
     //nút xóa là delete sản phẩm khỏi database và cập nhật lại database đồng thời hiển thị lại bảng danh sách sản phẩm
-    $idsp = $_GET['masp'];
-    echo $idsp;
+    $idsp = $_GET['mahang'];
+
+
+    
+
+    // echo $idsp;
     require 'KetNoiB1.php';
     mysqli_set_charset($con, 'UTF8');
     //viết câu sql
-    $sql = "DELETE FROM products WHERE product_id = '$idsp'";
+    $sql = "DELETE FROM giohang WHERE idgh = '$idgh'";
     $result = $con->query($sql);
-    header('location: QuanLi.php');
+    
     //đóng kết nối
     $con->close();
+ 
+     
+         
+    if(isset($_SESSION["cart"][$idsp])){ 
+        $_SESSION["cart"][$idsp] += 1; 
+        // var_dump($_SESSION["cart"]);exit;
+    }
+      
+    header('location: GioHang.php');
+    exit;
+
+
 }
     
 ?>

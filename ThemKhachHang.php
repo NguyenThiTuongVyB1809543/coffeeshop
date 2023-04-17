@@ -33,8 +33,8 @@
                         <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="index.php">Trang Chủ</a></li>
                         <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="Admin.php">Admin</a></li>
                         <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="QuanLi.php">Quản Lí Sản Phẩm</a></li>
-                        <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="QuanLiKhachHang.php">Quản Lí Khách Hàng</a></li>
-                        <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="QuanLiHoaDon.php">Quản Lí Hóa Đơn</a></li>
+                        <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="QuanLiKhachHang.php">Thông Tin Khách Hàng</a></li>
+                        <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="QuanLiHoaDon.php">Thông Tin Hóa Đơn</a></li>
                       
                       
                         
@@ -86,6 +86,19 @@
                                                 <td>Mật Khẩu</td>
                                                 <td><input type='text' name='password' ></td>
                                             </tr>
+                                            <tr>
+                                                <td>Email</td>
+                                                <td><input type='text' name='email' ></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Address</td>
+                                                <td><input type='text' name='address' ></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Số Điện Thoại</td>
+                                                <td><input type='text' name='phone_number' ></td>
+                                            </tr>
+
                                             <tr>
                                                 <td>Vai trò (0 hoặc 1) </td>
                                                 <td><input type='text' name='vaitro' ></td>

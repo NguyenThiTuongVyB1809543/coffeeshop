@@ -9,7 +9,8 @@
         //(2)lam viec voi csdl
         require 'KetNoiB1.php';
         mysqli_set_charset($con, 'utf8');
-        $getid = "SELECT id FROM thanhvien WHERE tendangnhap = '$ten' AND matkhau = '$mk' ";
+        // $getid = "SELECT id FROM thanhvien WHERE tendangnhap = '$ten' AND matkhau = '$mk' ";
+        $getid = "SELECT id FROM users WHERE username = '$ten' AND password = '$mk' ";
         
         $result = $con->query($getid);
         // $row = $result->fetch_assoc();

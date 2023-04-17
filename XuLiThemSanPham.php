@@ -32,9 +32,10 @@
     //B1: kết nối
     require 'KetNoiB1.php';
     //viết câu sql
-    $sql = "INSERT INTO sanpham (tensp, chitietsp, giasp, hinhanhsp, idtv)
-            value('$name', '$detail', '$price','$duongdan', '$getid')";
-  
+    // $sql = "INSERT INTO sanpham (tensp, chitietsp, giasp, hinhanhsp, idtv)
+    //         value('$name', '$detail', '$price','$duongdan', '$getid')";
+    $sql = "INSERT INTO products (product_name, description, price, image_url)
+            value('$name', '$detail', '$price','$duongdan')";
 
     //thực hiện truy vấn
     $result = $con->query($sql);

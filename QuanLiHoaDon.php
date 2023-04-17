@@ -33,8 +33,8 @@
                         <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="index.php">Trang Chủ</a></li>
                         <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="Admin.php">Admin</a></li>
                         <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="QuanLi.php">Quản Lí Sản Phẩm</a></li>
-                        <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="QuanLiKhachHang.php">Quản Lí Khách Hàng</a></li>
-                        <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="QuanLiHoaDon.php">Quản Lí Hóa Đơn</a></li>
+                        <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="QuanLiKhachHang.php">Thông Tin Khách Hàng</a></li>
+                        <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="QuanLiHoaDon.php">Thông Tin Hóa Đơn</a></li>
                       
                        
                         
@@ -74,7 +74,7 @@
                         <div class='cta-inner bg-faded text-center rounded'>
                             <h2 class='section-heading mb-5'>
                                 <span class='section-heading-upper'>Come On In</span>
-                                <span class='section-heading-lower'>Quản Lí Hóa Đơn</span>
+                                <span class='section-heading-lower'>Thông Tin Hóa Đơn</span>
                             </h2>
                             <center>
                                 <table border = '1' cellpadding = '1' cellspacing = '1'>
@@ -165,8 +165,7 @@
                                         
                                         <td>".$row['giasp']." <br></td>
                                         
-                                        <td><button type = 'button'><a href='SuaHoaDon.php?mahd=".$row['iddh']."'>Sửa </a></button><br></td>
-                                        <td><button type = 'button'><a href='XoaHoaDon.php?mahd=".$row['iddh']."'>Xóa </a></button><br>   </td>
+                                         
                                     </tr>
                                     ";
                                 }

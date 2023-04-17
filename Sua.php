@@ -33,8 +33,8 @@
                         <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="index.php">Trang Chủ</a></li>
                         <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="Admin.php">Admin</a></li>
                         <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="QuanLi.php">Quản Lí Sản Phẩm</a></li>
-                        <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="QuanLiKhachHang.php">Quản Lí Khách Hàng</a></li>
-                        <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="QuanLiHoaDon.php">Quản Lí Hóa Đơn</a></li>
+                        <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="QuanLiKhachHang.php">Thông Tin Khách Hàng</a></li>
+                        <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="QuanLiHoaDon.php">Thông Tin Hóa Đơn</a></li>
                       
                       
                             }
@@ -67,11 +67,11 @@
     require 'KetNoiB1.php';
     mysqli_set_charset($con, 'UTF8');
     //viết câu sql
-    $sql = "SELECT tensp, chitietsp, giasp, hinhanhsp FROM sanpham WHERE idsp = '$idsp'";
+    // $sql = "SELECT tensp, chitietsp, giasp, hinhanhsp FROM sanpham WHERE idsp = '$idsp'";
+    $sql = "SELECT product_name, description, price, image_url FROM products WHERE product_id = '$idsp'";
     $result = $con->query($sql);
     $row = $result->fetch_assoc();
-    $hinhanhsp = $row['hinhanhsp'];
-
+    $hinhanhsp = $row['image_url'];
     echo "<br>";
         echo"
         <section class='page-section cta'>
@@ -92,23 +92,23 @@
                                             <tr>
                                                 <td>Tên sản phẩm</td>
                                                 <td>
-                                                    <input type='text' name='name_Product' id='name_Product' value = '".$row['tensp']."'>
+                                                    <input type='text' name='name_Product' id='name_Product' value = '".$row['product_name']."'>
                                                 </td>
                                                 <td><input type='text' name='masp' value= '".$idsp."' style= 'display:none;'></td>
                                             </tr>
                                             <tr>
                                                 <td>Chi tiết sản phẩm</td>
-                                                <td><input type='text' name='detail_Product' id='detail_Product' value = '".$row['chitietsp']."'></td>
+                                                <td><input type='text' name='detail_Product' id='detail_Product' value = '".$row['description']."'></td>
                                             </tr>
                                             <tr>
                                                 <td>Giá sản phẩm</td>
-                                                <td><input type='text' name='price_Product'id='price_Product' value = '".$row['giasp']."'></td>
+                                                <td><input type='text' name='price_Product'id='price_Product' value = '".$row['price']."'></td>
                                             </tr>
                                             <tr>
                                                 <td>Hình ảnh sản phẩm</td>
                                                 <td>
                                                     <label>
-                                                        <input type='file' name='img_Product' id='img_Product' value = '".$row['hinhanhsp']."'>
+                                                        <input type='file' name='img_Product' id='img_Product' value = '".$row['image_url']."'>
                                                     </label>
                                                 </td>
                                             </tr>

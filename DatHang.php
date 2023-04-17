@@ -52,18 +52,65 @@
                 $idsp = $_GET['masp'];
                 require 'KetNoiB1.php';
                 mysqli_set_charset($con, 'UTF8');
+                $quantity = 1;
+                $sql = "SELECT * FROM products WHERE product_id = '$idsp'";
+                $result1 = $con->query($sql);
+                $row = $result1->fetch_assoc();
 
-                $sql = "SELECT idsp, tensp, giasp FROM sanpham WHERE idsp = '$idsp'";
                 $result = $con->query($sql);
-                $row = $result->fetch_assoc();
+                $product = $result->fetch_assoc();
 
-                $sqltv = "SELECT tendangnhap FROM thanhvien WHERE id = '$idtv'";
-                $resulttv = $con->query($sqltv);
-                $rowtv = $resulttv->fetch_assoc();
+                if(!isset($_SESSION["cart"])){
+                    $_SESSION["cart"] = array();
+                    $_SESSION["cart"][$idsp] = 1; 
+                    var_dump($_SESSION["cart"]);exit;
+                }
+                else{
+                    // Add the product to the cart
+                    if(isset($_SESSION["cart"][$idsp])){
+                        // If the product is already in the cart, increment the quantity
+                        $_SESSION["cart"][$idsp] += 1; 
+                        var_dump($_SESSION["cart"]);exit;
+                    }
+                    else{
+                        // If the product is not in the cart, add it with a quantity of 1 
+                        $_SESSION["cart"][$idsp] = 1;   
+                        var_dump($_SESSION["cart"]);exit;
+                    }
+                } 
+
+
+                // $sqltv = "SELECT tendangnhap FROM thanhvien WHERE id = '$idtv'";
+                // $resulttv = $con->query($sqltv);
+                // $rowtv = $resulttv->fetch_assoc();
                 // echo $idsp."<br>";
                 // echo $row['tensp'];
                 
                 // header('location: XuatHoaDon.php');
+                // echo"
+                // <section class='page-section cta'>
+                //     <div class='container'>
+                //         <div class='row'>
+                //             <div class='col-xl-9 mx-auto'>
+                //                 <div class='cta-inner bg-faded text-center rounded'>
+                //                     <h2 class='section-heading mb-4'>
+                //                         <span class='section-heading-upper'>Bạn đã thêm món vào giỏ hàng thành công! </span>
+                //                         <span class='section-heading-lower'>".$row['tensp']."</span>
+                //                         <span class='section-heading-upper'>Mời bạn vào giỏ hàng để thang toán</span>
+                //                     </h2>
+                //                 </div>
+                //             </div>
+                //         </div>
+                //     </div>
+                // </section>
+                // ";
+                // $tensp = $row['tensp'];
+                // $giasp = $row['giasp'];
+                
+                // //Thêm idtv, tensp, giasp vào bảng giohang có 3 cột 
+                // $sqlthemgh = "INSERT INTO giohang (idtv, idsp, tensp, giasp) VALUES ('$idtv', '$idsp', '$tensp', '$giasp' )";
+                // $resultgh = $con->query($sqlthemgh);
+                // $con->close();
                 echo"
                 <section class='page-section cta'>
                     <div class='container'>
@@ -72,7 +119,7 @@
                                 <div class='cta-inner bg-faded text-center rounded'>
                                     <h2 class='section-heading mb-4'>
                                         <span class='section-heading-upper'>Bạn đã thêm món vào giỏ hàng thành công! </span>
-                                        <span class='section-heading-lower'>".$row['tensp']."</span>
+                                        <span class='section-heading-lower'>".$product['product_name']."</span>
                                         <span class='section-heading-upper'>Mời bạn vào giỏ hàng để thang toán</span>
                                     </h2>
                                 </div>
@@ -81,16 +128,9 @@
                     </div>
                 </section>
                 ";
-                $tensp = $row['tensp'];
-                $giasp = $row['giasp'];
-                
-                //Thêm idtv, tensp, giasp vào bảng giohang có 3 cột 
-                $sqlthemgh = "INSERT INTO giohang (idtv, idsp, tensp, giasp) VALUES ('$idtv', '$idsp', '$tensp', '$giasp' )";
-                $resultgh = $con->query($sqlthemgh);
-                $con->close();
               
             }
-        ?>          
+        ?> 
         
         <footer class="footer text-faded text-center py-5">
             <div class="container"><p class="m-0 small">Copyright &copy; Tường Di Website 2022</p></div>

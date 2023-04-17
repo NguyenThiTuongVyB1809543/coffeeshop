@@ -33,8 +33,8 @@
                         <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="index.php">Trang Chủ</a></li>
                         <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="Admin.php">Admin</a></li>
                         <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="QuanLi.php">Quản Lí Sản Phẩm</a></li>
-                        <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="QuanLiKhachHang.php">Quản Lí Khách Hàng</a></li>
-                        <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="QuanLiHoaDon.php">Quản Lí Hóa Đơn</a></li>
+                        <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="QuanLiKhachHang.php">Thông Tin Khách Hàng</a></li>
+                        <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="QuanLiHoaDon.php">Thông Tin Hóa Đơn</a></li>
                       
                        
                         
@@ -61,7 +61,8 @@
         $idtv = $_SESSION['id'];
         require 'KetNoiB1.php';
         mysqli_set_charset($con, 'UTF8');
-        $sql = "SELECT * FROM sanpham ";
+        // $sql = "SELECT * FROM sanpham ";
+        $sql = "SELECT * FROM products ";
         $result = $con->query($sql);
         echo "<br>";
         echo"
@@ -113,21 +114,38 @@
                                 </tr>
 
                                 <tr>";
+                                // while($row = $result->fetch_assoc()){
+                                //     $idsp = $row['idsp'];
+                                //     // echo "$idsp";
+                                //     echo "
+                                //         <td>".$row['tensp']."<br></td>
+                                //         <td>".$row['chitietsp']." <br></td>
+                                //         <td>".$row['giasp']." <br></td>
+                                        
+                                //         <td><img src='".$row['hinhanhsp']."' width='40%'><br></td>
+                                //         <td><div class='intro-button mx-auto' ><a class='btn btn-primary btn-xl' href='Sua.php?masp=".$idsp."'>Sửa</a></div></td>
+                                //         <td><div class='intro-button mx-auto' ><a class='btn btn-primary btn-xl' href='Xoa.php?masp=".$idsp."'>Xóa</a></div></td>
+                                        
+                                //     </tr>
+                                //      ";
+                                // }
+
+
                                 while($row = $result->fetch_assoc()){
-                                    $idsp = $row['idsp'];
-                                    // echo "$idsp";
-                                    echo "
-                                        <td>".$row['tensp']."<br></td>
-                                        <td>".$row['chitietsp']." <br></td>
-                                        <td>".$row['giasp']." <br></td>
-                                        
-                                        <td><img src='".$row['hinhanhsp']."' width='40%'><br></td>
-                                        <td><div class='intro-button mx-auto' ><a class='btn btn-primary btn-xl' href='Sua.php?masp=".$idsp."'>Sửa</a></div></td>
-                                        <td><div class='intro-button mx-auto' ><a class='btn btn-primary btn-xl' href='Xoa.php?masp=".$idsp."'>Xóa</a></div></td>
-                                        
-                                    </tr>
-                                     ";
-                                }
+                                        $idsp = $row['product_id'];
+                                        // echo "$idsp";
+                                        echo "
+                                            <td>".$row['product_name']."<br></td>
+                                            <td>".$row['description']." <br></td>
+                                            <td>".$row['price']." <br></td>
+                                            
+                                            <td><img src='".$row['image_url']."' width='40%'><br></td>
+                                            <td><div class='intro-button mx-auto' ><a class='btn btn-primary btn-xl' href='Sua.php?masp=".$idsp."'>Sửa</a></div></td>
+                                            <td><div class='intro-button mx-auto' ><a class='btn btn-primary btn-xl' href='Xoa.php?masp=".$idsp."'>Xóa</a></div></td>
+                                            
+                                        </tr>
+                                         ";
+                                    }
                             echo "</table>
                             
                             <p class='address mb-5'>
