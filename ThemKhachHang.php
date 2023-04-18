@@ -35,10 +35,6 @@
                         <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="QuanLi.php">Quản Lí Sản Phẩm</a></li>
                         <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="QuanLiKhachHang.php">Thông Tin Khách Hàng</a></li>
                         <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="QuanLiHoaDon.php">Thông Tin Hóa Đơn</a></li>
-                      
-                      
-                        
-                        
                     </ul>
                 </div>
             </div>
@@ -79,6 +75,13 @@
                                                 <td>Tên tài khoản khách hàng</td>
                                                 <td>
                                                     <input type='text' name='account'>
+                                                </td>
+                            
+                                            </tr>
+                                            <tr>
+                                                <td>Tên khách hàng</td>
+                                                <td>
+                                                    <input type='text' name='name'>
                                                 </td>
                             
                                             </tr>

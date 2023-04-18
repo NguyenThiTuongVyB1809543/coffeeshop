@@ -36,8 +36,7 @@
                             header('location: DangNhap.html');
                           }
                           else{
-                              echo "
-                                <li class='nav-item px-lg-4'><a class='nav-link text-uppercase' href='index.php'>Trang Chủ</a></li>
+                              echo " 
                                 <li class='nav-item px-lg-4'><a class='nav-link text-uppercase' href='Admin.php'>Admin</a></li>
                                 <li class='nav-item px-lg-4'><a class='nav-link text-uppercase' href='DangXuat.php'>Đăng Xuất</a></li>
                                 <li class='nav-item px-lg-4'><a class='nav-link text-uppercase' href='QuanLi.php'>Quản Lí Sản Phẩm</a></li>
@@ -59,7 +58,7 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav mx-auto">
                         <li class="nav-item px-lg-4">
-                            <form action= "TimKiem.php" method="GET" enctype="multipart/form-data">
+                            <form action= "TimKiemAdmin.php" method="GET" enctype="multipart/form-data">
                                 <div class="input-group" >
                                     <div id="search-autocomplete" class="form-outline" >
                                         <input class="btn btn-primary" type="search" id="form1" name="search" class="form-control" >

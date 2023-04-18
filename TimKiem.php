@@ -32,10 +32,8 @@
                     <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="index.php">Trang Chủ</a></li>
                         <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="Menu.php">Xem Menu</a></li>
                         <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="FormDK.html">Đăng Kí</a></li>
-                        <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="DangNhap.html">Đăng Nhập</a></li>
-                        <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="DangXuat.php">Đăng Xuất</a></li>
-                        <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="GioHang.php">Giỏ Hàng</a></li>
-                        <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="DonHang.php">Đơn Hàng</a></li>
+                        <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="DangNhap.html">Đăng Nhập</a></li> 
+                        <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="GioHang.php">Giỏ Hàng</a></li> 
                         <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="store.html">Store</a></li>
                     </ul>
                 </div>  
@@ -69,10 +67,10 @@
             require 'KetNoiB1.php';
             mysqli_set_charset($con, 'UTF8');
             $search = $_GET['search'];
-            $sql = "SELECT idsp, tensp, chitietsp, giasp, hinhanhsp FROM sanpham WHERE tensp LIKE '%".$search."%' ";
+            $sql = "SELECT * FROM products WHERE product_name LIKE '%".$search."%' ";
             $result = $con->query($sql);
             while($row = $result->fetch_assoc()){
-                $idsp = $row['idsp'];
+                $idsp = $row['product_id'];
 
                 echo"
                     <section class='page-section'>
@@ -81,18 +79,18 @@
                                 <div class='product-item-title d-flex'>
                                     <div class='bg-faded p-5 d-flex ms-auto rounded'>
                                         <h2 class='section-heading mb-0'>
-                                            <span class='section-heading-lower'>".$row['tensp']."</span>
-                                            <span class='section-heading-upper'>Giá: ".$row['giasp']."</span>
+                                            <span class='section-heading-lower'>".$row['product_name']."</span>
+                                            <span class='section-heading-upper'>Giá: ".$row['price']."</span>
                                             <div class='intro-button mx-auto'><a class='btn btn-primary btn-xl' href='DatHang.php?masp=".$idsp."'>Thêm vào giỏ hàng</a></div>
 
                                         </h2>
                                     </div>
                                 </div>
-                                <img class='product-item-img mx-auto d-flex rounded img-fluid mb-3 mb-lg-0' src='".$row['hinhanhsp']."' alt='...' />
+                                <img class='product-item-img mx-auto d-flex rounded img-fluid mb-3 mb-lg-0' src='".$row['image_url']."' alt='...' />
                                 
                                 <br>
                                 <div class='product-item-description d-flex me-auto'>
-                                    <div class='bg-faded p-5 rounded'><p class='mb-0'>".$row['chitietsp']."</p></div>
+                                    <div class='bg-faded p-5 rounded'><p class='mb-0'>".$row['description']."</p></div>
                                 </div>
                             </div>
                         </div>
@@ -103,7 +101,7 @@
     ?>
         
         <footer class="footer text-faded text-center py-5">
-            <div class="container"><p class="m-0 small">Copyright &copy; Tường Di Website 2022</p></div>
+            <div class="container"><p class="m-0 small">Copyright &copy; Tường Di Website 2023</p></div>
         </footer>
         <!-- Bootstrap core JS-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>

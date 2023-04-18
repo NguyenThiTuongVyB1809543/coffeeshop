@@ -1,6 +1,7 @@
 <?php
     //(1) Lấy dữ liệu về
-    $username = $_POST['name']; 
+    $username = $_POST['username']; 
+    $name = $_POST['name']; 
     $pass1 = $_POST['pass']; 
     $email = $_POST['email']; 
     $address = $_POST['address']; 
@@ -33,8 +34,8 @@
     // value ('$username', '$pass1', '0')";
     // $con->query($sql);
     
-    $sql = "INSERT INTO users (username, password, email, address, phone_number, vaitro) 
-    value ('$username', '$pass1', '$email', '$address', '$phone_number',  '0')";
+    $sql = "INSERT INTO users (username, password, name, email, address, phone_number, vaitro) 
+    value ('$username', '$pass1','$name', '$email', '$address', '$phone_number',  '0')";
     // $con->query($sql);
 
 

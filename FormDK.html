@@ -23,7 +23,7 @@
                 // alert("test");
                 var check = true;
                 var temp = 0;
-                var ten = document.getElementById("nameid").value;
+                var ten = document.getElementById("usernameid").value;
                 
                 var pass = document.getElementById("passid").value;
                 
@@ -33,17 +33,17 @@
                 // Tên đăng nhập: bắt đầu phải là chữ cái, theo sau có thể là chữ cái hoặc là số và dài từ 6 đến 15 ký tự.
                 var BTCQtendn = /^[A-Za-z][A-Za-z0-9]{5,14}$/;//Biểu thức chính qui tên đăng nhập
                 if(ten == ""){
-                    document.getElementById("nameid1").innerHTML = "Vui lòng nhập tên";
-                    document.getElementById("nameid1").style.color = "red";
+                    document.getElementById("usernameid1").innerHTML = "Vui lòng nhập tên";
+                    document.getElementById("usernameid1").style.color = "red";
                     check = false;
                   
                 }
                 else{
-                    document.getElementById("nameid1").innerHTML = "";
+                    document.getElementById("usernameid1").innerHTML = "";
                     check = true;
                     if(!ten.match(BTCQtendn)){
-                        document.getElementById("nameid1").innerHTML="Tên đăng nhập không hợp lệ!";
-                        document.getElementById("nameid1").style.color = "red";
+                        document.getElementById("usernameid1").innerHTML="Tên đăng nhập không hợp lệ!";
+                        document.getElementById("usernameid1").style.color = "red";
                         check = false;
                     }
                    
@@ -100,8 +100,8 @@
                 var xmlhttp = new XMLHttpRequest();
                 xmlhttp.onreadystatechange = function(){
                     if(this.readyState == 4 && this.status == 200){
-                        document.getElementById("nameid1").innerHTML = this.responseText;
-                        document.getElementById("nameid1").style.color = "red";
+                        document.getElementById("usernameid1").innerHTML = this.responseText;
+                        document.getElementById("usernameid1").style.color = "red";
                     }
                 }
                 xmlhttp.open("GET","KiemTraUser.php?u="+str,true);
@@ -125,12 +125,9 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav mx-auto">
                     <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="index.php">Trang Chủ</a></li>
-                        <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="Menu.php">Xem Menu</a></li>
-                        <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="FormDK.html">Đăng Kí</a></li>
-                        <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="DangNhap.html">Đăng Nhập</a></li>
-                        <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="DangXuat.php">Đăng Xuất</a></li>
-                        <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="GioHang.php">Giỏ Hàng</a></li>
-                        <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="DonHang.php">Đơn Hàng</a></li>
+                        <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="Menu.php">Xem Menu</a></li> 
+                        <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="DangNhap.html">Đăng Nhập</a></li> 
+                        <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="GioHang.php">Giỏ Hàng</a></li> 
                         <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="store.html">Store</a></li>
                     </ul>
                 </div>  
@@ -179,7 +176,17 @@
                                                 <table>
                                                     <tr>
                                                         <td>Tên đăng nhập *<br></td>
-                                                        <td><input type="text" name="name" id="nameid" onchange = "testUser(this.value)"><br></td>
+                                                        <td><input type="text" name="username" id="usernameid" onchange = "testUser(this.value)"><br></td>
+                                                        
+                                                    </tr>
+                                                    <tr>
+                                                        <td></td>
+                                                        <td id = "usernameid1"></td>
+                                                    </tr>
+
+                                                    <tr>
+                                                        <td>Tên *<br></td>
+                                                        <td><input type="text" name="name" id="nameid"  ><br></td>
                                                         
                                                     </tr>
                                                     <tr>

@@ -29,9 +29,9 @@
                 <a class="navbar-brand text-uppercase fw-bold d-lg-none" href="index.html">Start Bootstrap</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav mx-auto">
-                        <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="index.php">Trang Chủ</a></li>
-                        <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="Admin.php">Admin</a></li>
+                    <ul class="navbar-nav mx-auto"> 
+                        <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="Admin.php">Admin</a></li> 
+                        <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="DangXuat.php">Đăng Xuất</a></li>
                         <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="QuanLi.php">Quản Lí Sản Phẩm</a></li>
                         <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="QuanLiKhachHang.php">Thông Tin Khách Hàng</a></li>
                         <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="QuanLiHoaDon.php">Thông Tin Hóa Đơn</a></li>
@@ -61,10 +61,10 @@
         $idtv = $_SESSION['id'];
         require 'KetNoiB1.php';
         mysqli_set_charset($con, 'UTF8');
-        $sql = "SELECT donhang.iddh, donhang.idtvt, thanhvien.tendangnhap, sanpham.idsp, donhang.hoten, donhang.diachi, donhang.sodt, donhang.phuongthuc, donhang.thoigian, sanpham.tensp, sanpham.giasp
-        FROM donhang
-        JOIN sanpham ON donhang.idspp = sanpham.idsp
-        JOIN thanhvien ON donhang.idtvt = thanhvien.id;";
+        $sql = "SELECT o.*, SUM(oi.item_price) AS total_amount
+                        FROM oders o
+                        JOIN order_items oi ON o.order_id = oi.order_id
+                        GROUP BY o.order_id";
         $result = $con->query($sql);
         echo"
         <section class='page-section cta'>
@@ -111,14 +111,7 @@
                                         </ul>
                                 
                                 </th>
-                                <th>
-                                <ul class='list-unstyled list-hours mb-5 text-left mx-auto'>
-                                            <li class='list-unstyled-item list-hours-item d-flex'>
-                                                <span class='ms-auto'>Phương thức</span>
-                                            </li>
-                                        </ul>
-                                
-                                </th>
+                                 
                                 <th>
                                 <ul class='list-unstyled list-hours mb-5 text-left mx-auto'>
                                             <li class='list-unstyled-item list-hours-item d-flex'>
@@ -138,7 +131,7 @@
                                 <th>
                                 <ul class='list-unstyled list-hours mb-5 text-left mx-auto'>
                                             <li class='list-unstyled-item list-hours-item d-flex'>
-                                                <span class='ms-auto'>Giá sản phẩm</span>
+                                                <span class='ms-auto'>Tổng tiền</span>
                                             </li>
                                         </ul>
                                 
@@ -148,26 +141,45 @@
                                 </tr>
                                 <tr>";  
                                 while($row = $result->fetch_assoc()){
-                                    if($row['phuongthuc'] == 1){
-                                        $phuongthuc = "Thanh toán khi nhận hàng";
+                                    $user_id = $row['user_id'];
+                                    $sql2 = "SELECT * FROM users WHERE id = '$user_id' ";
+                                    $result2 = $con->query($sql2);
+                                    while($row2 = $result2->fetch_assoc()){ 
+                                        echo "
+                                            <td>".$row2['username']."<br></td>
+                                            <td>".$row2['name']."<br></td>
+                                            <td>".$row2['address']."<br></td>
+                                            <td>".$row2['phone_number']."<br></td>
+                                             
+                                            <td>".$row['order_date']."<br></td>";
+
+                                            $order_id = $row['order_id'];
+                                            $sql3 = "SELECT * FROM order_items WHERE order_id = '$order_id' ";
+                                            $result3 = $con->query($sql3);
+                                            echo "<td>";
+                                            while($row3 = $result3->fetch_assoc()){ 
+                                                $product_id = $row3['product_id'];
+                                                $sql4 = "SELECT * FROM products WHERE product_id = '$product_id' ";
+                                                $result4 = $con->query($sql4);
+                                                $row4 = $result4->fetch_assoc();
+                                                echo"
+                                                ".$row4['product_name']." X ".$row3['quantity'].",
+                                            ";
+                                            }
+                                            echo"
+                                                </td>
+                                                <td>         
+                                                    ".$row['total_price']."<br>
+                                                </td>
+                                            </tr>
+                                            ";
                                     }
-                                   else{
-                                        $phuongthuc = "Chuyển khoản";
-                                    }
-                                    echo "
-                                        <td>".$row['tendangnhap']."<br></td>
-                                        <td>".$row['hoten']."<br></td>
-                                        <td>".$row['diachi']."<br></td>
-                                        <td>".$row['sodt']."<br></td>
-                                        <td>".$phuongthuc."<br></td>
-                                        <td>".$row['thoigian']."<br></td>
-                                        <td>".$row['tensp']."<br></td>
-                                        
-                                        <td>".$row['giasp']." <br></td>
-                                        
-                                         
-                                    </tr>
-                                    ";
+
+
+
+                                    
+
+
                                 }
                                 echo "</table>
                             <center>

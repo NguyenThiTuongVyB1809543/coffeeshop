@@ -112,7 +112,7 @@
                                                     </li> 
                                                 </ul>"; 
                                                 echo"
-                                                    <div class='intro-button mx-auto'><a class='btn btn-primary btn-xl' href='XuLiThanhToan.php?total=".$total."'>Đặt Hàng</a></div>
+                                                    <div class='intro-button mx-auto'><a class='btn btn-primary btn-xl' href='XuLiThanhToan.php?total=".$total."'>Xác Nhận</a></div>
                                             </h2>
                                         </div>
                                     </div>

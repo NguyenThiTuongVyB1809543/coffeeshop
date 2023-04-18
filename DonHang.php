@@ -32,9 +32,7 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav mx-auto">
                     <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="index.php">Trang Chủ</a></li>
-                        <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="Menu.php">Xem Menu</a></li>
-                        <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="FormDK.html">Đăng Kí</a></li>
-                        <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="DangNhap.html">Đăng Nhập</a></li>
+                        <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="Menu.php">Xem Menu</a></li> 
                         <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="DangXuat.php">Đăng Xuất</a></li>
                         <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="GioHang.php">Giỏ Hàng</a></li>
                         <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="DonHang.php">Đơn Hàng</a></li>
@@ -49,15 +47,18 @@
             if(!isset($_SESSION['id'])){
                 header('location: DangNhap.html');
             }
-            else{
+            else{ 
                 $idtv = $_SESSION['id'];
                 require 'KetNoiB1.php';
                 mysqli_set_charset($con, 'UTF8');
-                $sql = "SELECT donhang.idtvt, sanpham.idsp, donhang.hoten, donhang.diachi, donhang.sodt, donhang.phuongthuc, donhang.thoigian, sanpham.tensp, sanpham.giasp
-                FROM donhang
-                JOIN sanpham ON donhang.idspp = sanpham.idsp
-                AND donhang.idtvt = '$idtv'";
+                
+
+                $sql = "SELECT o.*, SUM(oi.item_price) AS total_amount
+                        FROM oders o
+                        JOIN order_items oi ON o.order_id = oi.order_id
+                        GROUP BY o.order_id";
                 $result = $con->query($sql);
+                 
                 echo "
                     <section class='page-section cta'>
                         <div class='container'>
@@ -92,14 +93,7 @@
                                                     </li>
                                                 </ul>
                                             </td>
-                                            <td>
-                                                <ul class='list-unstyled list-hours mb-5 text-left mx-auto'>
-                                                    <li class='list-unstyled-item list-hours-item d-flex'>
-                                                        <span class='ms-auto'>Phương thức thanh toán</span>
-                                                    </li>
-                                                </ul>         
-                                                
-                                            </td>
+                                             
                                             <td> 
                                             <ul class='list-unstyled list-hours mb-5 text-left mx-auto'>
                                                     <li class='list-unstyled-item list-hours-item d-flex'>
@@ -111,55 +105,68 @@
                                             <td> 
                                             <ul class='list-unstyled list-hours mb-5 text-left mx-auto'>
                                                     <li class='list-unstyled-item list-hours-item d-flex'>
-                                                        <span class='ms-auto'>Tên Nước</span>
+                                                        <span class='ms-auto'>Tên sản phẩm</span>
                                                     </li>
                                                 </ul>          
                                                 
                                             </td>
+                                             
+                                             
                                             <td>  
                                             <ul class='list-unstyled list-hours mb-5 text-left mx-auto'>
                                                     <li class='list-unstyled-item list-hours-item d-flex'>
-                                                        <span class='ms-auto'>Giá Nước</span>
+                                                        <span class='ms-auto'>Tổng Tiền</span>
                                                     </li>
                                                 </ul>        
                                                
                                             </td>
                                             
                                         </tr> ";
-                                        while($row = $result->fetch_assoc()){
-                                            if($row['phuongthuc'] == 1 ){
-                                                $phuongthuc = "Thanh toán khi nhận hàng";
+                                        
+                                        while($row = $result->fetch_assoc()){ 
+                                            if($row['user_id'] == $idtv){
+                                                $sql2 = "SELECT * FROM users WHERE id = '$idtv' ";
+                                                $result2 = $con->query($sql2);
+ 
+                                                 
+                                                while($row2 = $result2->fetch_assoc()){
+
+                                                    echo "
+                                                    <tr>
+                                                        <td> 
+                                                                
+                                                            ".$row2['name']."<br>
+                                                        </td>
+                                                        <td>         
+                                                            ".$row2['address']."<br>  
+                                                        </td>
+                                                        <td>         
+                                                            ".$row2['phone_number']."<br>   
+                                                        </td>
+                                                         
+                                                        <td>         
+                                                            ".$row['order_date']."<br>
+                                                        </td> ";
+                                                        $order_id = $row['order_id'];
+                                                        $sql3 = "SELECT * FROM order_items WHERE order_id = '$order_id' ";
+                                                        $result3 = $con->query($sql3);
+                                                        echo "<td>";
+                                                        while($row3 = $result3->fetch_assoc()){ 
+                                                            $product_id = $row3['product_id'];
+                                                            $sql4 = "SELECT * FROM products WHERE product_id = '$product_id' ";
+                                                            $result4 = $con->query($sql4);
+                                                            $row4 = $result4->fetch_assoc();
+                                                            echo"
+                                                            ".$row4['product_name']." X ".$row3['quantity'].",";
+                                                        }
+                                                        echo"
+                                                        </td>
+                                                        <td>         
+                                                            ".$row['total_price']."<br>
+                                                        </td> 
+                                                    </tr> ";
+                                                }
                                             }
-                                            else{
-                                                    $phuongthuc = "Chuyển khoản";
-                                            }
-                                            
-                                            echo "
-                                            <tr>
-                                                <td> 
-                                                        
-                                                    ".$row['hoten']."<br>
-                                                </td>
-                                                <td>         
-                                                    ".$row['diachi']."<br>  
-                                                </td>
-                                                <td>         
-                                                    ".$row['sodt']."<br>   
-                                                </td>
-                                                <td>         
-                                                    ".$phuongthuc."<br>
-                                                </td>
-                                                <td>         
-                                                    ".$row['thoigian']."<br>
-                                                </td>
-                                                <td>         
-                                                    ".$row['tensp']."<br>
-                                                </td>
-                                                <td>         
-                                                    ".$row['giasp']."<br>
-                                                </td>
-                                                
-                                            </tr> ";
                                         }
                                         echo"
                                     </table>
@@ -182,108 +189,4 @@
         <script src="js/scripts.js"></script>
     </body>
 </html>
-
-
-
-
-
-
-<?php
-    // session_start();
-    // if(!isset($_SESSION['id'])){
-    //     header('location: DangNhap.html');
-    // }
-    // else{
-    //     $idtv = $_SESSION['id'];
-    //     require 'KetNoiB1.php';
-    //     mysqli_set_charset($con, 'UTF8');
-    //     $sql = "SELECT donhang.idtvt, sanpham.idsp, donhang.hoten, donhang.diachi, donhang.sodt, donhang.phuongthuc, donhang.thoigian, sanpham.tensp, sanpham.giasp
-    //     FROM donhang
-    //     JOIN sanpham ON donhang.idspp = sanpham.idsp
-    //     AND donhang.idtvt = '$idtv'";
-    //     $result = $con->query($sql);
-       
-        
-    //     echo "<table border = '1' cellpadding = '1' cellspacing = '1'>";
-    //     echo "
-    //         <tr>
-    //             <td>         
-    //                 Họ Tên
-    //             </td>
-    //             <td>         
-    //                 Địa Chỉ
-    //             </td>
-    //             <td>         
-    //                 Số điện thoại
-    //             </td>
-    //             <td>         
-    //                 Phương thức thanh toán
-    //             </td>
-    //             <td>         
-    //                 Thời gian đặt hàng
-    //             </td>
-    //             <td>         
-    //                 Tên Nước
-    //             </td>
-    //             <td>         
-    //                 Giá Nước
-    //             </td>
-                
-    //         </tr> 
-    //     ";
-    //     echo "<h3>Đây là lịch sữ mua nước của bạn</h3>";
-      
-       
-    //     while($row = $result->fetch_assoc()){
-    //         if($row['phuongthuc'] == 1 ){
-    //             $phuongthuc = "Thanh toán khi nhận hàng";
-    
-    //        }
-    //        else{
-    //             $phuongthuc = "Chuyển khoản";
-    //        }
-          
-    //         echo "
-            
-            
-    //         <tr>
-    //             <td>         
-    //                 ".$row['hoten']."<br>
-    //             </td>
-    //             <td>         
-    //                 ".$row['diachi']."<br>  
-    //             </td>
-    //             <td>         
-    //                 ".$row['sodt']."<br>   
-    //             </td>
-    //             <td>         
-    //                 ".$phuongthuc."<br>
-    //             </td>
-    //             <td>         
-    //                 ".$row['thoigian']."<br>
-    //             </td>
-    //             <td>         
-    //                 ".$row['tensp']."<br>
-    //             </td>
-    //             <td>         
-    //                 ".$row['giasp']."<br>
-    //             </td>
-                
-    //         </tr> 
-    //         "; 
-            
-    //     }
-    //     echo "</table>";
-        
-    //     echo "<br>";
-        
-    //     echo "<button type = 'button' ><a href='Menu.php'>Xem Menu </a></button>";
-       
-    //     echo "<button><a href = 'index.php'>Trở về trang chủ</a></button>";
-
-        
-
-         
-
-    // }
-?>
+ 

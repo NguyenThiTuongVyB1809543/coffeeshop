@@ -600,7 +600,7 @@ progress {
 }
 
 .img-fluid {
-  max-width: 100%;
+  max-width: 60%;
   height: auto;
 }
 
@@ -11457,7 +11457,7 @@ p {
   .product-item .product-item-img {
     position: relative;
     z-index: 0;
-    max-width: 60vw;
+    max-width: 10vw;
   }
   .product-item .product-item-description {
     position: relative;

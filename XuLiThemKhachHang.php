@@ -9,10 +9,9 @@
     //(1) Lấy dữ liệu về
     //lấy account
     $account = $_POST['account'];
-    echo "$account"."<br>";
+    $name = $_POST['name']; 
     //lấy password
-    $password = $_POST['password'];
-    echo "$password"."<br>";
+    $password = $_POST['password']; 
 
 
     $email = $_POST['email'];
@@ -37,8 +36,8 @@
     //viết câu sql
     // $sql = "INSERT INTO thanhvien (tendangnhap, matkhau, vaitro)
     //         value('$account', '$password', '$vaitro')";
-    $sql = "INSERT INTO users (username, password, email, address, phone_number, vaitro)
-            value('$account', '$password', '$email', '$address', '$phone_number', '$vaitro')";
+    $sql = "INSERT INTO users (username, password, name, email, address, phone_number, vaitro)
+            value('$account', '$password','$name', '$email', '$address', '$phone_number', '$vaitro')";
 
     //thực hiện truy vấn
     $result = $con->query($sql);
